@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "path_provider_harmonyos_ohos",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}
