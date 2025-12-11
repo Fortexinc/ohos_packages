@@ -25,32 +25,32 @@ flutter:
         default_package: audioplayers_ohos
 
 dependencies:
-  audioplayers_android: 
-    git: 
+  audioplayers_android:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_android
   audioplayers_ohos:
     git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_ohos
-  audioplayers_darwin: 
-    git: 
+  audioplayers_darwin:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_darwin
-  audioplayers_linux: 
-    git: 
+  audioplayers_linux:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_linux
-  audioplayers_platform_interface: 
-    git: 
+  audioplayers_platform_interface:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_platform_interface
-  audioplayers_web: 
-    git: 
+  audioplayers_web:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_web
-  audioplayers_windows: 
-    git: 
+  audioplayers_windows:
+    git:
       url: https://gitcode.com/openharmony-sig/flutter_audioplayers.git
       path: packages/audioplayers_windows
   file: ^6.1.0
@@ -58,10 +58,19 @@ dependencies:
     sdk: flutter
   http: '>=0.13.1 <2.0.0'
   meta: ^1.7.0
-  path_provider:
+
+  #  path_provider:
+  #    git:
+  #      url: https://gitcode.com/openharmony-sig/flutter_packages.git
+  #      path: packages/path_provider/path_provider
+
+  # modify audioplayer dependencies path_provider
+  path_provider_harmonyos:
     git:
-      url: https://gitcode.com/openharmony-sig/flutter_packages.git
-      path: packages/path_provider/path_provider
+      url: git@github.com:Fortexinc/ohos_packages.git
+      path: path_provider_harmonyos/path_provider_harmonyos
+      ref: master
+
   synchronized: ^3.0.0
   uuid: '>=3.0.7 <5.0.0'
 
