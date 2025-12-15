@@ -201,6 +201,34 @@ class PageRedirect {
     );
   }
 
+  // navigator order push redirect all pages that needes redirecting
+  GetPageRoute<T> page<T>(BuildContext context) {
+    while (needRecheck(context)) {}
+    final r = (isUnknown ? unknownRoute : route)!;
+    return GetPageRoute<T>(
+      page: r.page,
+      parameter: r.parameters,
+      settings: isUnknown
+          ? RouteSettings(
+        name: r.name,
+        arguments: settings!.arguments,
+      )
+          : settings,
+      curve: r.curve,
+      opaque: r.opaque,
+      showCupertinoParallax: r.showCupertinoParallax,
+      gestureWidth: r.gestureWidth,
+      customTransition: r.customTransition,
+      binding: r.binding,
+      bindings: r.bindings,
+      transitionDuration: r.transitionDuration ?? Get.defaultTransitionDuration,
+      transition: r.transition,
+      popGesture: r.popGesture,
+      fullscreenDialog: r.fullscreenDialog,
+      middlewares: r.middlewares,
+    );
+  }
+
   /// check if redirect is needed
   bool needRecheck(BuildContext context) {
     if (settings == null && route != null) {

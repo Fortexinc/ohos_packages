@@ -14,6 +14,8 @@ class GeneralPlatform {
 
   static bool get isIOS => Platform.isIOS;
 
+  static bool get isOhos => Platform.isOhos;
+
   static bool get isFuchsia => Platform.isFuchsia;
 
   static bool get isDesktop =>

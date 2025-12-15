@@ -11,6 +11,8 @@ class GeneralPlatform {
 
   static bool get isIOS => throw UnimplementedError();
 
+  static bool get isOhos => throw UnimplementedError();
+
   static bool get isFuchsia => throw UnimplementedError();
 
   static bool get isDesktop => throw UnimplementedError();
