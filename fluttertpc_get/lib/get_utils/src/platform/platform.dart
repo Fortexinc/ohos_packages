@@ -20,7 +20,7 @@ class GetPlatform {
 
   static bool get isFuchsia => GeneralPlatform.isFuchsia;
 
-  static bool get isMobile => GetPlatform.isIOS || GetPlatform.isAndroid;
+  static bool get isMobile => GetPlatform.isIOS || GetPlatform.isAndroid || GetPlatform.isOhos;
 
   static bool get isDesktop =>
       GetPlatform.isMacOS || GetPlatform.isWindows || GetPlatform.isLinux;
