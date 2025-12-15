@@ -72,15 +72,13 @@ class GetMaterialApp extends StatelessWidget {
     this.navigatorKey,
     this.scaffoldMessengerKey,
     this.home,
-    Map<String, Widget Function(BuildContext)> this.routes =
-        const <String, WidgetBuilder>{},
+    Map<String, Widget Function(BuildContext)> this.routes = const <String, WidgetBuilder>{},
     this.initialRoute,
     this.onGenerateRoute,
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
     this.useInheritedMediaQuery = false,
-    List<NavigatorObserver> this.navigatorObservers =
-        const <NavigatorObserver>[],
+    List<NavigatorObserver> this.navigatorObservers = const <NavigatorObserver>[],
     this.builder,
     this.textDirection,
     this.title = '',
@@ -242,7 +240,8 @@ class GetMaterialApp extends StatelessWidget {
       // ],
       child: Builder(builder: (context) {
         final controller = GetRoot.of(context);
-        return MaterialApp.router(
+        return routerDelegate != null
+            ? MaterialApp.router(
           routerDelegate: controller.config.routerDelegate,
           routeInformationParser: controller.config.routeInformationParser,
           backButtonDispatcher: backButtonDispatcher,
@@ -251,23 +250,53 @@ class GetMaterialApp extends StatelessWidget {
           key: controller.config.unikey,
           builder: (context, child) => Directionality(
             textDirection: textDirection ??
-                (rtlLanguages.contains(Get.locale?.languageCode)
-                    ? TextDirection.rtl
-                    : TextDirection.ltr),
-            child: builder == null
-                ? (child ?? const Material())
-                : builder!(context, child ?? const Material()),
+                (rtlLanguages.contains(Get.locale?.languageCode) ? TextDirection.rtl : TextDirection.ltr),
+            child: builder == null ? (child ?? const Material()) : builder!(context, child ?? const Material()),
           ),
           title: title,
           onGenerateTitle: onGenerateTitle,
           color: color,
           theme: controller.config.theme ?? ThemeData.fallback(),
-          darkTheme: controller.config.darkTheme ??
-              controller.config.theme ??
-              ThemeData.fallback(),
+          darkTheme: controller.config.darkTheme ?? controller.config.theme ?? ThemeData.fallback(),
           themeMode: controller.config.themeMode,
           locale: Get.locale ?? locale,
           scaffoldMessengerKey: controller.config.scaffoldMessengerKey,
+          localizationsDelegates: localizationsDelegates,
+          localeListResolutionCallback: localeListResolutionCallback,
+          localeResolutionCallback: localeResolutionCallback,
+          supportedLocales: supportedLocales,
+          debugShowMaterialGrid: debugShowMaterialGrid,
+          showPerformanceOverlay: showPerformanceOverlay,
+          checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+          checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+          showSemanticsDebugger: showSemanticsDebugger,
+          debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+          shortcuts: shortcuts,
+          scrollBehavior: scrollBehavior,
+        )
+            : MaterialApp(
+          navigatorKey: (navigatorKey == null ? Get.key : Get.addKey(navigatorKey!)),
+          scaffoldMessengerKey: scaffoldMessengerKey,
+          home: home,
+          routes: routes ?? const <String, WidgetBuilder>{},
+          initialRoute: initialRoute,
+          onGenerateRoute: onGenerateRoute,
+          // (getPages != null ? generator : onGenerateRoute),
+          onGenerateInitialRoutes: onGenerateInitialRoutes,
+          // (getPages == null || home != null) ? onGenerateInitialRoutes : initialRoutesGenerate,
+          onUnknownRoute: onUnknownRoute,
+          navigatorObservers: (navigatorObservers == null
+              ? <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
+              : <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
+            ..addAll(navigatorObservers!)),
+          builder: defaultBuilder,
+          title: title,
+          onGenerateTitle: onGenerateTitle,
+          color: color,
+          theme: theme ?? ThemeData.fallback(),
+          darkTheme: darkTheme ?? theme ?? ThemeData.fallback(),
+          themeMode: themeMode,
+          locale: Get.locale ?? locale,
           localizationsDelegates: localizationsDelegates,
           localeListResolutionCallback: localeListResolutionCallback,
           localeResolutionCallback: localeResolutionCallback,
@@ -284,4 +313,25 @@ class GetMaterialApp extends StatelessWidget {
       }),
     );
   }
+
+  Widget defaultBuilder(BuildContext context, Widget? child) {
+    return Directionality(
+      textDirection:
+      textDirection ?? (rtlLanguages.contains(Get.locale?.languageCode) ? TextDirection.rtl : TextDirection.ltr),
+      child: builder == null ? (child ?? const Material()) : builder!(context, child ?? const Material()),
+    );
+  }
+
+  // Route<dynamic> generator(RouteSettings settings) {
+  //   return PageRedirect(settings: settings, unknownRoute: unknownRoute).getPageToRoute();
+  // }
+  //
+  // List<Route<dynamic>> initialRoutesGenerate(String name) {
+  //   return [
+  //     PageRedirect(
+  //       settings: RouteSettings(name: name),
+  //       unknownRoute: unknownRoute,
+  //     ).getPageToRoute()
+  //   ];
+  // }
 }
