@@ -1,0 +1,40 @@
+name: webview_flutter_example
+description: Demonstrates how to use the webview_flutter plugin.
+publish_to: none
+
+environment:
+  sdk: ^3.2.3
+  flutter: ">=3.16.6"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider: ^2.0.6
+  webview_flutter:
+    git:
+      url: "https://gitcode.com/openharmony-tpc/flutter_packages.git"
+      path: "packages/webview_flutter/webview_flutter"
+      ref : "br_webview_flutter-v4.8.0_ohos"
+
+dev_dependencies:
+  build_runner: ^2.1.5
+  espresso: ^0.2.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+dependency_overrides:
+  webview_flutter_platform_interface:
+    git:
+      url: https://gitcode.com/openharmony-tpc/flutter_packages.git
+      path: packages/webview_flutter/webview_flutter_platform_interface
+      ref : "br_webview_flutter-v4.8.0_ohos"  
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sample_audio.ogg
+    - assets/sample_video.mp4
+    - assets/www/index.html
+    - assets/www/styles/style.css
