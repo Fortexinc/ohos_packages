@@ -101,8 +101,8 @@ abstract class GetMiddleware {
 class MiddlewareRunner {
   MiddlewareRunner(List<GetMiddleware>? middlewares)
       : _middlewares = middlewares != null
-            ? (List.of(middlewares)..sort(_compareMiddleware))
-            : const [];
+      ? (List.of(middlewares)..sort(_compareMiddleware))
+      : const [];
 
   final List<GetMiddleware> _middlewares;
 
@@ -191,7 +191,7 @@ class PageRedirect {
       binds: r.binds,
       transitionDuration: r.transitionDuration ?? Get.defaultTransitionDuration,
       reverseTransitionDuration:
-          r.reverseTransitionDuration ?? Get.defaultTransitionDuration,
+      r.reverseTransitionDuration ?? Get.defaultTransitionDuration,
       // performIncomeAnimation: _r.performIncomeAnimation,
       // performOutGoingAnimation: _r.performOutGoingAnimation,
       transition: r.transition,
@@ -202,7 +202,11 @@ class PageRedirect {
   }
 
   // navigator order push redirect all pages that needes redirecting
-  GetPageRoute<T> page<T>(BuildContext context) {
+  GetPageRoute<T> page<T>() {
+    if (Get.context == null) {
+      return GetPageRoute<T>();
+    }
+    BuildContext context = Get.context!;
     while (needRecheck(context)) {}
     final r = (isUnknown ? unknownRoute : route)!;
     return GetPageRoute<T>(

@@ -280,10 +280,12 @@ class GetMaterialApp extends StatelessWidget {
           home: home,
           routes: routes ?? const <String, WidgetBuilder>{},
           initialRoute: initialRoute,
-          onGenerateRoute: onGenerateRoute,
-          // (getPages != null ? generator : onGenerateRoute),
-          onGenerateInitialRoutes: onGenerateInitialRoutes,
-          // (getPages == null || home != null) ? onGenerateInitialRoutes : initialRoutesGenerate,
+          onGenerateRoute: (getPages != null ? generator : onGenerateRoute),
+          // onGenerateRoute,
+
+          onGenerateInitialRoutes: (getPages == null || home != null) ? onGenerateInitialRoutes : initialRoutesGenerate,
+          // onGenerateInitialRoutes,
+
           onUnknownRoute: onUnknownRoute,
           navigatorObservers: (navigatorObservers == null
               ? <NavigatorObserver>[GetObserver(routingCallback, Get.routing)]
@@ -322,16 +324,16 @@ class GetMaterialApp extends StatelessWidget {
     );
   }
 
-  // Route<dynamic> generator(RouteSettings settings) {
-  //   return PageRedirect(settings: settings, unknownRoute: unknownRoute).getPageToRoute();
-  // }
-  //
-  // List<Route<dynamic>> initialRoutesGenerate(String name) {
-  //   return [
-  //     PageRedirect(
-  //       settings: RouteSettings(name: name),
-  //       unknownRoute: unknownRoute,
-  //     ).getPageToRoute()
-  //   ];
-  // }
+  Route<dynamic> generator(RouteSettings settings) {
+    return PageRedirect(settings: settings, unknownRoute: unknownRoute).page(); //getPageToRoute();
+  }
+
+  List<Route<dynamic>> initialRoutesGenerate(String name) {
+    return [
+      PageRedirect(
+        settings: RouteSettings(name: name),
+        unknownRoute: unknownRoute,
+      ).page() //getPageToRoute()
+    ];
+  }
 }
